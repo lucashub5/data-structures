@@ -1,11 +1,11 @@
-class Node {
+export class Node {
     constructor(value = null) {
         this.value = value;
         this.nextNode = null;
     }
 }
 
-class LinkedList {
+export class LinkedList {
     constructor() {
         this.head = null;
         this.tail = null;
@@ -95,12 +95,12 @@ class LinkedList {
         return false;
     }
 
-    find(value) {
+    find(compareFunction) {
         let count = 0;
         let current = this.head;
 
         while (current !== null) {
-            if(current.value === value) {
+            if(compareFunction(current.value)) {
                 return count;
             }
             count++;
@@ -160,8 +160,11 @@ class LinkedList {
             previousCurrent = current;
             current = current.nextNode;
         }
-        
-        if (!previousCurrent) {
+
+        if (current === this.head && current === this.tail) {
+            this.head = null;
+            this.tail = null;
+        } else if (!previousCurrent) {
             this.head = current.nextNode;
         } else if (current === this.tail) {
             this.tail = previousCurrent;
@@ -184,50 +187,6 @@ class LinkedList {
     }
 }
 
-//TEST
-
-const linkedList = new LinkedList;
-
-console.log(linkedList.at(-1));
-console.log(linkedList.at(0));
-console.log(linkedList.at(1));
-linkedList.append('append');
-linkedList.prepend('prepend');
-console.log(linkedList.size());
-console.log(linkedList.getHead());
-console.log(linkedList.getTail());
-console.log(linkedList.at(0));
-linkedList.append('append');
-linkedList.prepend('prepend');
-console.log(linkedList.size());
-console.log(linkedList.getHead());
-console.log(linkedList.getTail());
-console.log(linkedList.at(0));
-linkedList.pop();
-linkedList.pop();
-linkedList.pop();
-linkedList.pop();
-console.log(linkedList.size());
-console.log(linkedList.getHead());
-console.log(linkedList.getTail());
-console.log(linkedList.at(0));
-console.log(linkedList.contains('test2'));
-console.log(linkedList.contains(null));
-linkedList.insertAt('test', -1);
-linkedList.insertAt('test', 0);
-console.log(linkedList.toString());
-console.log(linkedList.contains('test'));
-console.log(linkedList.find('test'));
-console.log(linkedList.find('test2'));
-console.log(linkedList.find(null));
-linkedList.insertAt('test2', 0);
-linkedList.insertAt('testi', 1);
-linkedList.insertAt('testo', 0);
-console.log(linkedList.toString());
-linkedList.removeAt(0);
-linkedList.removeAt(2);
-linkedList.removeAt(2);
-console.log(linkedList.toString());
 
 
 
